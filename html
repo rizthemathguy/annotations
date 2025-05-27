@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annotated Passage with Typing Animation</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .full-passage {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            min-height: 120px;
+            overflow: hidden;
+        }
+        
+        .annotated-section {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            color: #121212;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 8px 0;
+            font-size: 22px;
+        }
+        
+        .annotation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #333;
+            border-left: 4px solid #ff5722;
+            border-radius: 0 8px 8px 0;
+            min-height: 80px;
+        }
+        
+        .annotation-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff5722;
+            font-size: 20px;
+        }
+        
+        .annotation-content {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        
+        /* Typing animation */
+        .typing {
+            border-right: 2px solid #ff5722;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff5722; }
+        }
+        
+        @media (max-width: 768px) {
+            .full-passage {
+                font-size: 20px;
+            }
+            .highlight {
+                font-size: 18px;
+            }
+            .annotation-title {
+                font-size: 18px;
+            }
+            .annotation-content {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Annotation Demonstration</h1>
+        
+        <div class="full-passage" id="fullPassage"></div>
+        
+        <div class="annotated-section" id="section1">
+            <div class="highlight" id="highlight1"></div>
+            <div class="annotation">
+                <div class="annotation-title" id="title1"></div>
+                <div class="annotation-content" id="content1"></div>
+            </div>
+        </div>
+        
+        <div class="annotated-section" id="section2">
+            <div class="highlight" id="highlight2"></div>
+            <div class="annotation">
+                <div class="annotation-title" id="title2"></div>
+                <div class="annotation-content" id="content2"></div>
+            </div>
+        </div>
+        
+        <div class="annotated-section" id="section3">
+            <div class="highlight" id="highlight3"></div>
+            <div class="annotation">
+                <div class="annotation-title" id="title3"></div>
+                <div class="annotation-content" id="content3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Text content
+        const content = {
+            fullPassage: '"but that is the way of things, for when we migrate, we murder from our lives those we leave behind."',
+            highlights: [
+                "but that is the way of things",
+                "for when we migrate", 
+                "we murder from our lives those we leave behind"
+            ],
+            titles: [
+                "Parallelism",
+                "Migration Impact",
+                "Violent Reality"
+            ],
+            annotations: [
+                "The quote uses parallelism to symbolize the struggles that migrants go through to migrate.",
+                "When people migrate they have to detach themselves from their past life.",
+                "When people migrate they kill the people they left behind (metaphorically). This impacts the reader by bringing up a different perspective that isn't necessarily presented throughout the book."
+            ]
+        };
+
+        // Typing animation function
+        async function typeText(element, text, speed = 30) {
+            element.classList.add('typing');
+            for (let i = 0; i < text.length; i++) {
+                element.textContent += text[i];
+                await new Promise(resolve => setTimeout(resolve, speed));
+            }
+            element.classList.remove('typing');
+        }
+
+        // Animate all sections sequentially
+        async function animateAll() {
+            // Type full passage
+            await typeText(document.getElementById('fullPassage'), content.fullPassage);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // First annotation section
+            await typeText(document.getElementById('highlight1'), content.highlights[0]);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            await typeText(document.getElementById('title1'), content.titles[0]);
+            await typeText(document.getElementById('content1'), content.annotations[0]);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Second annotation section
+            await typeText(document.getElementById('highlight2'), content.highlights[1]);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            await typeText(document.getElementById('title2'), content.titles[1]);
+            await typeText(document.getElementById('content2'), content.annotations[1]);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Third annotation section
+            await typeText(document.getElementById('highlight3'), content.highlights[2]);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            await typeText(document.getElementById('title3'), content.titles[2]);
+            await typeText(document.getElementById('content3'), content.annotations[2]);
+        }
+
+        // Start animation when page loads
+        window.addEventListener('load', animateAll);
+    </script>
+</body>
+</html>
