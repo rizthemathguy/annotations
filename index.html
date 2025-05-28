@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ela project Annotated Passage by Rizwan </title>
+    <title>Annotated Passage with Fast Typing Animation</title>
     <style>
         body {
             font-family: 'Courier New', monospace;
@@ -75,10 +75,10 @@
             line-height: 1.5;
         }
         
-        /* Typing animation */
+        /* Faster typing animation */
         .typing {
             border-right: 2px solid #ff5722;
-            animation: blink-caret 0.75s step-end infinite;
+            animation: blink-caret 0.5s step-end infinite;
         }
         
         @keyframes blink-caret {
@@ -104,7 +104,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Annotation Demonstration by Rizwan</h1>
+        <h1>Annotation Demonstration</h1>
         
         <div class="full-passage" id="fullPassage"></div>
         
@@ -149,13 +149,13 @@
             ],
             annotations: [
                 "The quote uses parallelism to symbolize the struggles that migrants go through to migrate.",
-                "When people migrate, they have to detach themselves from their past life.",
-                "When people migrate, they kill the people they left behind (metaphorically). This impacts the reader by bringing up a different perspective that isn't necessarily presented throughout the book."
+                "When people migrate they have to detach themselves from their past life.",
+                "When people migrate they kill the people they left behind (metaphorically). This impacts the reader by bringing up a different perspective that isn't necessarily presented throughout the book."
             ]
         };
 
-        // Typing animation function
-        async function typeText(element, text, speed = 30) {
+        // Faster typing animation function (20ms instead of 30ms)
+        async function typeText(element, text, speed = 20) {
             element.classList.add('typing');
             for (let i = 0; i < text.length; i++) {
                 element.textContent += text[i];
@@ -164,29 +164,29 @@
             element.classList.remove('typing');
         }
 
-        // Animate all sections sequentially
+        // Animate all sections sequentially with shorter pauses
         async function animateAll() {
             // Type full passage
             await typeText(document.getElementById('fullPassage'), content.fullPassage);
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 300));
             
             // First annotation section
             await typeText(document.getElementById('highlight1'), content.highlights[0]);
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 200));
             await typeText(document.getElementById('title1'), content.titles[0]);
             await typeText(document.getElementById('content1'), content.annotations[0]);
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 300));
             
             // Second annotation section
             await typeText(document.getElementById('highlight2'), content.highlights[1]);
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 200));
             await typeText(document.getElementById('title2'), content.titles[1]);
             await typeText(document.getElementById('content2'), content.annotations[1]);
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 300));
             
             // Third annotation section
             await typeText(document.getElementById('highlight3'), content.highlights[2]);
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 200));
             await typeText(document.getElementById('title3'), content.titles[2]);
             await typeText(document.getElementById('content3'), content.annotations[2]);
         }
